@@ -7,7 +7,7 @@ const app = express()
 const port = process.env.PORT
 
 app.get("/", (req, res) => {
-  res.send("Cool Cars API is up and running")
+  res.send("Cool Cars API is up and running :)")
 })
 
 app.listen(port, () => {
