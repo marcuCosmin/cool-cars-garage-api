@@ -1,13 +1,19 @@
 import express from "express"
-import { config as dotenvConfig } from "dotenv"
+import cors from "cors"
 
-dotenvConfig()
+import { usersRouter } from "./routes/users"
 
 const app = express()
 const port = process.env.PORT
+const allowedOrigin = process.env.ALLOWED_ORIGIN
+
+app.use(cors({ origin: allowedOrigin }))
+app.use(express.json())
+
+app.use("/users", usersRouter)
 
 app.get("/", (req, res) => {
-  res.send("Cool Cars API is up and running :)")
+  res.send("Cool Cars API is up and running")
 })
 
 app.listen(port, () => {
