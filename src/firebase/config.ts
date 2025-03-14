@@ -16,7 +16,9 @@ if (!firebasePrivateKey) {
   throw new Error("FIREBASE_PRIVATE_KEY is not set")
 }
 
-const parsedFirebasePrivateKey = JSON.parse(firebasePrivateKey)
+const parsedFirebasePrivateKey = isProduction
+  ? firebasePrivateKey
+  : JSON.parse(firebasePrivateKey)
 
 const firebaseApp = initializeApp({
   credential: credential.cert(parsedFirebasePrivateKey)
