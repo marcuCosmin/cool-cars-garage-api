@@ -12,15 +12,11 @@ if (!isProduction) {
 
 const firebasePrivateKey = process.env.FIREBASE_PRIVATE_KEY
 
-throw new Error(
-  `FIREBASE_PRIVATE_KEY: ${firebasePrivateKey}, ${typeof firebasePrivateKey}`
-)
-
 if (!firebasePrivateKey) {
   throw new Error("FIREBASE_PRIVATE_KEY is not set")
 }
 
-const parsedFirebasePrivateKey = JSON.parse(firebasePrivateKey as string)
+const parsedFirebasePrivateKey = JSON.parse(firebasePrivateKey)
 
 const firebaseApp = initializeApp({
   credential: credential.cert(parsedFirebasePrivateKey)
