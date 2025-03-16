@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "npx tsc && cp package.json package-lock.json firebase-private-key.json dist/",
+    "prebuild": "node prebuild.js",
+    "build": "npx tsc && cp package.json package-lock.json dist/",
     "dev": "nodemon src/index.ts",
     "lint": "eslint ."
   },
