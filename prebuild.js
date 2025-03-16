@@ -5,7 +5,6 @@ const { promisify } = require("util")
 
 const execCommand = promisify(exec)
 
-const isProduction = process.env.NODE_ENV === "production"
 const firebasePrivateKey = process.env.FIREBASE_PRIVATE_KEY
 
 const distPath = path.join(__dirname, "dist")
@@ -16,8 +15,8 @@ const firebasePrivateKeyJsonPath = path.join(
 
 const prebuild = async () => {
   try {
-    if (!isProduction) {
-      return
+    if (!firebasePrivateKey) {
+      throw new Error("FIREBASE_PRIVATE_KEY is missing")
     }
 
     await execCommand("rm -rf dist")
