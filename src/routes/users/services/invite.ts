@@ -1,13 +1,22 @@
 import { type Request, type Response } from "express"
 
 import nodemailer from "nodemailer"
-import { firestore } from "../../../firebase/config"
+import { firebaseAuth, firestore } from "../../../firebase/config"
 
 import { getRequestingAdminUid } from "../utils"
 
 import type { User } from "../types"
 
 type ReqBody = Pick<User, "email" | "role">
+
+const isEmailUsed = async (email: string) => {
+  try {
+    await firebaseAuth.getUserByEmail(email)
+    return true
+  } catch {
+    return false
+  }
+}
 
 export const handleInviteRequest = async (
   req: Request<undefined, undefined, ReqBody>,
@@ -28,6 +37,16 @@ export const handleInviteRequest = async (
     }
 
     const { email, role } = req.body
+
+    const emailIsUsed = await isEmailUsed(email as string)
+
+    if (emailIsUsed) {
+      res.status(400).json({
+        error: "The provided email is already in use"
+      })
+
+      return
+    }
 
     const existingInvite = await firestore
       .collection("invitations")
