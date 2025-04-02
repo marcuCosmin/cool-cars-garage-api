@@ -19,7 +19,6 @@ export const handleDeleteRequest = async (
 
     if (!requestingAdminUid) {
       res.status(403).json({
-        users: [],
         error: "Unauthorized"
       })
 

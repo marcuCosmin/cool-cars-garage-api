@@ -29,7 +29,6 @@ export const handleInviteRequest = async (
 
     if (!requestingAdminUid) {
       res.status(403).json({
-        users: [],
         error: "Unauthorized"
       })
 

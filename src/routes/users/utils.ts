@@ -1,5 +1,7 @@
 import { firebaseAuth, firestore } from "../../firebase/config"
 
+import axios from "axios"
+
 import type { UserMetadata } from "./types"
 
 const getUserMetadata = async (uid: string) => {
@@ -38,3 +40,33 @@ export const getRequestingAdminUid = async (
     return null
   }
 }
+
+type SendSMSOptions = {
+  phoneNumber: string
+  message: string
+}
+
+export const sendSMS = ({ phoneNumber, message }: SendSMSOptions) =>
+  axios.post(
+    `https://xkjev4.api.infobip.com/sms/3/messages`,
+    {
+      messages: [
+        {
+          destinations: [
+            {
+              to: phoneNumber
+            }
+          ],
+          content: {
+            text: message
+          }
+        }
+      ]
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `App ${process.env.INFOBIP_API_KEY}`
+      }
+    }
+  )
