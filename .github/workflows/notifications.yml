@@ -1,0 +1,21 @@
+name: Run Notifications Job
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+
+jobs:
+  run-notifications:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.15.0"
+
+      - name: Run notifications script
+        run: node jobs/notifications.js
