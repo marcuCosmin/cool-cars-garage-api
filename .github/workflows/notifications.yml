@@ -21,5 +21,8 @@ jobs:
       - name: Build Project
         run: npm install && npm run build
 
+      - name: Test
+        run: ls . && ls dist
+
       - name: Run notifications script
         run: node ./dist/jobs/notifications.js
