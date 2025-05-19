@@ -17,5 +17,8 @@ jobs:
         with:
           node-version: "20.15.0"
 
+      - name: Build Project
+        run: npm install && npm run build
+
       - name: Run notifications script
-        run: node jobs/notifications.js
+        run: node dist/jobs/notifications.js
