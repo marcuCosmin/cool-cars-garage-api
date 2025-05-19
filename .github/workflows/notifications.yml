@@ -2,7 +2,7 @@ name: Run Notifications Job
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   run-notifications:
@@ -22,4 +22,4 @@ jobs:
         run: npm install && npm run build
 
       - name: Run notifications script
-        run: ls .
+        run: ls ./dist
