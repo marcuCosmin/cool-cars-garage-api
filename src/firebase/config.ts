@@ -8,6 +8,7 @@ import { config as configDotenv } from "dotenv"
 configDotenv()
 
 const isDev = process.env.NODE_ENV === "development"
+console.log(`isDev: ${isDev}`)
 const firebasePrivateKey = process.env.FIREBASE_PRIVATE_KEY as string
 const firebasePrivateKeyFile = "firebase-private-key.json"
 
