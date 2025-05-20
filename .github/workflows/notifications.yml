@@ -8,6 +8,7 @@ jobs:
   run-notifications:
     runs-on: ubuntu-latest
     env:
+      NODE_ENV: development
       FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
     steps:
       - name: Checkout repository
@@ -19,7 +20,7 @@ jobs:
           node-version: "20.15.0"
 
       - name: Build Project
-        run: npm install && npm run build-notifications
+        run: npm install && npm run build
 
       - name: Test
         run: ls . && ls dist

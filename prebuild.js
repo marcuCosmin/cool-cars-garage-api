@@ -14,6 +14,11 @@ const firebasePrivateKeyJsonPath = path.join(
 )
 
 const prebuild = async () => {
+  if (process.env.NODE_ENV !== "production") {
+    console.log("Skipping prebuild in non-production environment")
+    return
+  }
+
   try {
     if (!firebasePrivateKey) {
       throw new Error("FIREBASE_PRIVATE_KEY is missing")
