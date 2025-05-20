@@ -5,6 +5,7 @@
   "scripts": {
     "prebuild": "node prebuild.js",
     "build": "npx tsc && cp package.json package-lock.json dist/",
+    "build-notifications": "cross-env NODE_ENV=development npx tsc && cp package.json package-lock.json dist/",
     "dev": "cross-env NODE_ENV=development nodemon src/index.ts",
     "lint": "eslint ."
   },
