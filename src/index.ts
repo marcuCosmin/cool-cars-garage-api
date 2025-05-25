@@ -14,7 +14,7 @@ app.use("/users", cors({ origin: allowedOrigin }), usersRouter)
 app.use("/mail", mailRouter)
 
 app.get("/", (req, res) => {
-  res.send(process.env.MAIL_ALLOWED_ORIGIN)
+  res.send("Cool Cars Garage API is running!")
 })
 
 app.listen(port, () => {
