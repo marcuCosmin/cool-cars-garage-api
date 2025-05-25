@@ -1,9 +1,9 @@
 import { type Request, type Response } from "express"
 
-import nodemailer from "nodemailer"
 import { firebaseAuth, firestore } from "../../../firebase/config"
 
 import { getRequestingAdminUid } from "../utils"
+import { sendMail } from "../../../utils/send-mail"
 
 import type { User } from "../types"
 
@@ -65,19 +65,8 @@ export const handleInviteRequest = async (
       role
     })
 
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD
-      }
-    })
-
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: email,
+    await sendMail({
+      to: email as string,
       subject: "Invitation to join Cool Cars Garage",
       html: `
         <div>Hello,</div>
@@ -86,7 +75,7 @@ export const handleInviteRequest = async (
         <div>Click <a href="${process.env.ALLOWED_ORIGIN}/sign-up?invitationId=${createdInvite.id}">here</a> to accept the invitation.</div>
         <br/>
         <div>Thanks,</div>
-        <b>Cool Cars Garage</b> team</div>
+        <b>Cool Cars Garage</b> team
       `
     })
 
