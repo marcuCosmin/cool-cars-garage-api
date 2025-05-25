@@ -14,8 +14,8 @@ const firebasePrivateKeyJsonPath = path.join(
 )
 
 const prebuild = async () => {
-  if (process.env.NODE_ENV !== "production") {
-    console.log("Skipping prebuild in non-production environment")
+  if (!process.env.IS_CI_DEPLOY) {
+    console.log("Skipping prebuild outside of CI environment")
     return
   }
 

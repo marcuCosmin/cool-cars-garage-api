@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+      IS_CI_DEPLOY: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,8 +21,6 @@ jobs:
 
       - name: Build Project
         run: npm install && npm run build
-        env:
-          NODE_ENV: production
 
       - name: FTP Upload
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
