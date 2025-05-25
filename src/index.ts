@@ -8,10 +8,9 @@ const app = express()
 const port = process.env.PORT
 const allowedOrigin = process.env.ALLOWED_ORIGIN
 
-app.use(cors({ origin: allowedOrigin }))
 app.use(express.json())
 
-app.use("/users", usersRouter)
+app.use("/users", cors({ origin: allowedOrigin }), usersRouter)
 app.use("/mail", mailRouter)
 
 app.get("/", (req, res) => {
