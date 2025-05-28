@@ -1,13 +1,20 @@
 import { Router } from "express"
 import cors from "cors"
+import { rateLimit } from "express-rate-limit"
 
 import { handlePostRequest } from "./services/post"
 
+const contactRateLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 3,
+  message: { error: "Too many requests, please try again later." }
+})
+
 export const mailRouter = Router()
 
-mailRouter.options("/", cors({ origin: process.env.MAIL_ALLOWED_ORIGIN }))
-mailRouter.post(
-  "/",
-  cors({ origin: process.env.MAIL_ALLOWED_ORIGIN }),
-  handlePostRequest
+mailRouter.use(
+  contactRateLimiter,
+  cors({ origin: process.env.MAIL_ALLOWED_ORIGIN })
 )
+mailRouter.options("/")
+mailRouter.post("/", handlePostRequest)
