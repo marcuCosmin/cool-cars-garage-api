@@ -9,7 +9,7 @@ type ReqBody = {
 }
 
 export const handlePostRequest = async (
-  req: Request<undefined, undefined, ReqBody>,
+  req: Request<object, undefined, ReqBody>,
   res: Response
 ) => {
   const { email, subject, message } = req.body
@@ -21,7 +21,7 @@ export const handlePostRequest = async (
       html: message
     })
 
-    res.status(200).json({ message: "User created successfully" })
+    res.status(200).json({ message: "Message sent successfully" })
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({
