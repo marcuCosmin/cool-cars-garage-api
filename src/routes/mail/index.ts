@@ -5,7 +5,7 @@ import { rateLimit } from "express-rate-limit"
 import { handlePostRequest } from "./services/post"
 
 const contactRateLimiter = rateLimit({
-  windowMs: 60 * 1000,
+  windowMs: 5 * 60 * 1000,
   max: 3,
   handler: (_, res) =>
     res
